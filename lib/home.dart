@@ -20,44 +20,13 @@ import 'model/products_repository.dart';
 import 'model/product.dart';
 
 class HomePage extends StatelessWidget {
-  // TODO: Add a variable for Category (104)
+  final Category category;
+
+  const HomePage({this.category: Category.all});
+
   @override
   Widget build(BuildContext context) {
-    // TODO: Return an AsymmetricView (104)
-    // TODO: Pass Category variable to AsymmetricView (104)
-//    return Scaffold(
-//      appBar: AppBar(
-//        // Status bar text color to black
-//        brightness: Brightness.light,
-//        // Menu button
-//        leading: IconButton(
-//          icon: Icon(Icons.menu),
-//          onPressed: () { print('Menu button'); },
-//        ),
-//        // App title
-//        title: Text('SHRINE'),
-//        // Action buttons
-//        actions: <Widget>[
-//          IconButton(
-//            icon: Icon(Icons.search),
-//            onPressed: () { print('Search button'); },
-//          ),
-//          IconButton(
-//            icon: Icon(Icons.tune),
-//            onPressed: () { print('Filter button'); },
-//          )
-//        ],
-//      ),
-//      // Grid view
-//      body: AsymmetricView(
-//        products: ProductsRepository.loadProducts(Category.all),
-//      ),
-//      // Ensure keyboard not altering sizing
-////      resizeToAvoidBottomInset: false,
-//    );
-    return  AsymmetricView(
-      products: ProductsRepository.loadProducts(Category.all),
-    );
+    return  AsymmetricView(products: ProductsRepository.loadProducts(category));
   }
 
   // Collection of cards

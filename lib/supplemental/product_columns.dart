@@ -33,33 +33,25 @@ class TwoProductCardColumn extends StatelessWidget {
 
       double heightOfCards = (constraints.biggest.height - spacerHeight) / 2.0;
       double heightOfImages = heightOfCards - ProductCard.kTextBoxHeight;
-      // TODO: Change imageAspectRatio calculation (104)
-      double imageAspectRatio = constraints.biggest.width / heightOfImages;
+      double imageAspectRatio = heightOfImages >= 0
+          ? constraints.biggest.width / heightOfImages
+          : 49.0 / 33.0;
 
       // TODO: Replace Column with a ListView (104)
-      return Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
+      return ListView(
+        physics: const ClampingScrollPhysics(),
         children: <Widget>[
           Padding(
-            padding: EdgeInsetsDirectional.only(start: 28.0),
+            padding: EdgeInsetsDirectional.only(start: 28),
             child: top != null
-                ? ProductCard(
-                    imageAspectRatio: imageAspectRatio,
-                    product: top,
-                  )
-                : SizedBox(
-                    height: heightOfCards,
-                  ),
+                ? ProductCard(imageAspectRatio: imageAspectRatio, product: top)
+                : SizedBox(height: heightOfCards)
           ),
           SizedBox(height: spacerHeight),
           Padding(
-            padding: EdgeInsetsDirectional.only(end: 28.0),
-            child: ProductCard(
-              imageAspectRatio: imageAspectRatio,
-              product: bottom,
-            ),
-          ),
+            padding: EdgeInsetsDirectional.only(end: 28),
+            child: ProductCard(imageAspectRatio: imageAspectRatio, product: bottom),
+          )
         ],
       );
     });
@@ -73,16 +65,14 @@ class OneProductCardColumn extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // TODO: Replace Column with a ListView (104)
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.end,
+    return ListView(
+      // Prevent scroll offset from reaching beyond the bounds of content
+      physics: const ClampingScrollPhysics(),
+      // Begin layout from the bottom, order of children is reversed
+      reverse: true,
       children: <Widget>[
-        ProductCard(
-          product: product,
-        ),
-        SizedBox(
-          height: 40.0,
-        ),
+        SizedBox(height: 40),
+        ProductCard(product: product)
       ],
     );
   }
